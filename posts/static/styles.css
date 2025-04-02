@@ -1,0 +1,210 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    padding: 2rem 0;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+header h1 {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+}
+
+/* Navigation */
+nav {
+    border-bottom: 1px solid #ccc;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav li {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #ccc;
+}
+
+nav li:last-child {
+    border-right: none;
+}
+
+nav a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+nav a:hover, nav a.active {
+    color: purple;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container input {
+    padding: 0.5rem;
+    border: none;
+    width: 80%;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section-title {
+    display: inline-block;
+    border: 1px solid #000;
+    padding: 0.8rem;
+    margin-bottom: 0;
+}
+
+.featured-post {
+    margin-bottom: 3rem;
+}
+
+.featured-content {
+    background-color: #e6f2f5;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Blog Posts */
+.blog-posts article {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.blog-posts article:last-child {
+    border-bottom: none;
+}
+
+.blog-posts h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.blog-posts .date {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.blog-posts a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Admin Styles */
+#adminLink {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+#adminLink a {
+    color: #999;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+#adminPanel, #adminDashboard {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox input {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+}
+
+.publish-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Footer */
+footer {
+    background-color: #e0e0e0;
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+}

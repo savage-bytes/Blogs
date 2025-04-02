@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Train of Thought</h1>
+        <p class="tagline">EVERYTHING IS PERSONAL. INCLUDING THIS BLOG.</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="{% url 'create_post' %}">Create a Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <li class="search-container">
+                <form method="GET" action="{% url 'search_posts' %}">
+                    <input type="text" name="q" placeholder="Search...">
+                    <button type="submit">🔍</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="card">
+                    <h2>Confirm Deletion</h2>
+                    <p>Are you sure you want to delete the post "{{ post.title }}"?</p>
+                    <div class="delete-actions">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">Yes, Delete</button>
+                        </form>
+                        <a href="{% url 'post_detail' post.id %}" class="cancel-btn">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Train of Thought. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

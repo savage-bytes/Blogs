@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Train of Thought</h1>
+        <p class="tagline">EVERYTHING IS PERSONAL. INCLUDING THIS BLOG.</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="{% url 'create_post' %}">Create a Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <li class="search-container">
+                <form method="GET" action="{% url 'search_posts' %}">
+                    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+                    <button type="submit">🔍</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="row">
+            <div class="leftcolumn">
+                <h2>Search Results for: "{{ query }}"</h2>
+                
+                {% for post in posts %}
+                <div class="card">
+                    <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+                    <h5>{{ post.created_at|date:"F d, Y" }}</h5>
+                    {% if post.image %}
+                    <div class="post-image">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </div>
+                    {% endif %}
+                    <div class="post-excerpt">
+                        {{ post.body|truncatewords:50|linebreaks }}
+                    </div>
+                    <a href="{% url 'post_detail' post.id %}" class="read-more">Read More</a>
+                </div>
+                {% empty %}
+                <div class="card">
+                    <p>No posts found matching your search.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Train of Thought. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
