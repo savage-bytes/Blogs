@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from pathlib import Path
 import os
 from urllib.parse import urlparse
+import os
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +37,8 @@ def _env_list(key, default=""):
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
-ALLOWED_HOSTS = _env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
+ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -52,6 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,16 +93,13 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
     parsed = urlparse(DATABASE_URL)
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": parsed.path.lstrip("/"),
-            "USER": parsed.username,
-            "PASSWORD": parsed.password,
-            "HOST": parsed.hostname,
-            "PORT": parsed.port or "5432",
-            "CONN_MAX_AGE": 600,
-        }
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
+    )
+}
+
+
 else:
     DATABASES = {
         "default": {
@@ -145,7 +147,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Media files (Uploads)
 MEDIA_URL = '/media/'
@@ -172,8 +177,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PORTFOLIO_LINKS = {
     "github": "https://github.com/savage-bytes",
     "github_projects": "https://github.com/savage-bytes?tab=repositories",
-    "linkedin": "https://www.linkedin.com/in/your-handle",
+    "linkedin": "https://www.linkedin.com/in/nidhish-rajpoot-b20637294/",
     "instagram": "https://www.instagram.com/your-handle",
     "email": "nidhishrajput1810@gmail.com",
-    "phone": "+91-XXXXXXXXXX",
+    "phone": "+91-6232626352"
 }
