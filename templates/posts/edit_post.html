@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Edit Log</div>
+    <h1>Edit Dev Log</h1>
+    <p>Refine and polish your update.</p>
+  </div>
+</section>
+
+<section class="section-block">
+  <form method="post" enctype="multipart/form-data" class="hud-panel form-grid">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>
+      <span>Title</span>
+      {{ form.title }}
+      {{ form.title.errors }}
+    </label>
+    <label class="full">
+      <span>Body</span>
+      {{ form.body }}
+      {{ form.body.errors }}
+    </label>
+    <label class="full">
+      <span>Image</span>
+      {{ form.image }}
+      {{ form.image.errors }}
+    </label>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Save Changes</button>
+      <a class="btn btn-ghost" href="{% url 'post_detail' post.id %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

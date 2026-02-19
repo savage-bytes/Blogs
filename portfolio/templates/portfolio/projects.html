@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Project Vault</div>
+    <h1>Projects</h1>
+    <p>Game-inspired builds and Django systems.</p>
+  </div>
+  <div class="page-hero-actions">
+    {% if site_links.github_projects %}
+    <a class="btn btn-outline btn-small" href="{{ site_links.github_projects }}" target="_blank" rel="noopener">
+      View All Repos
+    </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="card-grid">
+    {% for project in projects %}
+    <article class="project-card">
+      <div class="card-header">
+        <h3>{{ project.title }}</h3>
+        <span class="status {{ project.status|lower|slugify }}">{{ project.status }}</span>
+      </div>
+      <p>{{ project.description }}</p>
+      <div class="tech-list">
+        {% for tech in project.tech %}
+        <span class="tag">{{ tech }}</span>
+        {% endfor %}
+      </div>
+      {% if project.github %}
+      <a class="link-inline" href="{{ project.github }}" target="_blank" rel="noopener">GitHub</a>
+      {% else %}
+      <span class="muted">GitHub link on request</span>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

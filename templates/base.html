@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Portfolio{% endblock %} | Nidhish Rajpoot</title>
+    <meta
+      name="description"
+      content="{% block meta_description %}Gaming-themed portfolio and dev log hub for Nidhish Rajpoot.{% endblock %}"
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <script defer src="{% static 'js/main.js' %}"></script>
+  </head>
+  <body class="{% block body_class %}theme-hud{% endblock %}">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="loading-screen" class="loading-screen" aria-hidden="true">
+      <div class="loading-frame">
+        <div class="loading-label">Loading</div>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-orb orb-1" aria-hidden="true"></div>
+    <div class="bg-orb orb-2" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    {% with current=request.resolver_match.url_name %}
+    <header class="site-header">
+      <a class="logo" href="{% url 'home' %}">
+        <span class="logo-mark">NR</span>
+      </a>
+      <nav class="site-nav">
+        <div class="nav-item dropdown">
+          <a
+            class="{% if request.path|slice:':6' != '/blog/' %}active{% endif %}"
+            href="{% url 'home' %}"
+          >
+            Portfolio
+          </a>
+          <div class="dropdown-menu">
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'skills' %}">Skills</a>
+            <a href="{% url 'projects' %}">Projects</a>
+            <a href="{% url 'experience' %}">Experience</a>
+            <a href="{% url 'contact' %}">Contact</a>
+          </div>
+        </div>
+        <a class="{% if request.path|slice:':6' == '/blog/' %}active{% endif %}" href="{% url 'index' %}">Devlogs</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+    {% endwith %}
+
+    <main id="main" class="site-main">
+      {% if messages %}
+      <div class="message-stack">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-title">Nidhish Rajpoot</div>
+          <p class="footer-text">
+            Aspiring Game Developer + Software Engineer. Building immersive systems, one level at a time.
+          </p>
+        </div>
+        <div>
+          <div class="footer-title">Connect</div>
+          <div class="footer-links">
+            {% if site_links.email %}
+            <a href="mailto:{{ site_links.email }}">{{ site_links.email }}</a>
+            {% endif %}
+            {% if site_links.phone %}
+            <a href="tel:{{ site_links.phone }}">{{ site_links.phone }}</a>
+            {% endif %}
+            {% if site_links.github %}
+            <a href="{{ site_links.github }}" target="_blank" rel="noopener">GitHub</a>
+            {% endif %}
+            {% if site_links.github_projects %}
+            <a href="{{ site_links.github_projects }}" target="_blank" rel="noopener">GitHub Projects</a>
+            {% endif %}
+            {% if site_links.linkedin %}
+            <a href="{{ site_links.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            {% endif %}
+            {% if site_links.instagram %}
+            <a href="{{ site_links.instagram }}" target="_blank" rel="noopener">Instagram</a>
+            {% endif %}
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Location</div>
+          <p class="footer-text">India, M.P.</p>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2026 Nidhish Rajpoot. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Create Log</div>
+    <h1>New Dev Log</h1>
+    <p>Document progress, experiments, and lessons learned.</p>
+  </div>
+</section>
+
+<section class="section-block">
+  <form method="post" enctype="multipart/form-data" class="hud-panel form-grid">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>
+      <span>Title</span>
+      {{ form.title }}
+      {{ form.title.errors }}
+    </label>
+    <label class="full">
+      <span>Body</span>
+      {{ form.body }}
+      {{ form.body.errors }}
+    </label>
+    <label class="full">
+      <span>Image</span>
+      {{ form.image }}
+      {{ form.image.errors }}
+    </label>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Publish</button>
+      <a class="btn btn-ghost" href="{% url 'index' %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

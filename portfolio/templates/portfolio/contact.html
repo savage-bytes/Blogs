@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Comms Channel</div>
+    <h1>Contact</h1>
+    <p>Open for collaboration, internships, and game dev projects.</p>
+  </div>
+</section>
+
+<section class="section-grid">
+  <div class="hud-panel">
+    <div class="panel-title">Direct Links</div>
+    <div class="contact-list">
+      {% if site_links.email %}
+      <a href="mailto:{{ site_links.email }}">{{ site_links.email }}</a>
+      {% endif %}
+      {% if site_links.phone %}
+      <a href="tel:{{ site_links.phone }}">{{ site_links.phone }}</a>
+      {% endif %}
+      {% if site_links.github %}
+      <a href="{{ site_links.github }}" target="_blank" rel="noopener">GitHub</a>
+      {% endif %}
+      {% if site_links.github_projects %}
+      <a href="{{ site_links.github_projects }}" target="_blank" rel="noopener">GitHub Projects</a>
+      {% endif %}
+      {% if site_links.linkedin %}
+      <a href="{{ site_links.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      {% endif %}
+      {% if site_links.instagram %}
+      <a href="{{ site_links.instagram }}" target="_blank" rel="noopener">Instagram</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hud-panel">
+    <div class="panel-title">Drop a Message</div>
+    <form method="post" class="form-grid">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <label>
+        <span>Name</span>
+        {{ form.name }}
+        {{ form.name.errors }}
+      </label>
+      <label>
+        <span>Email</span>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </label>
+      <label class="full">
+        <span>Message</span>
+        {{ form.message }}
+        {{ form.message.errors }}
+      </label>
+      <button class="btn btn-primary" type="submit">Send Message</button>
+      {% if submitted %}
+      <span class="success-text">Message queued. Thanks for reaching out.</span>
+      {% endif %}
+    </form>
+  </div>
+</section>
+{% endblock %}

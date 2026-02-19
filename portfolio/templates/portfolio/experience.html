@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Experience{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Mission Log</div>
+    <h1>Experience</h1>
+    <p>Timeline of roles and shipped impact.</p>
+  </div>
+</section>
+
+<section class="section-block timeline">
+  {% for role in experience %}
+  <div class="timeline-item hud-panel">
+    <div class="timeline-header">
+      <h3>{{ role.title }}</h3>
+      <span class="timeline-company">{{ role.company }}</span>
+    </div>
+    <p class="timeline-focus">{{ role.focus }}</p>
+    <ul class="timeline-list">
+      {% for detail in role.details %}
+      <li>{{ detail }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

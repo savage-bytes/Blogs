@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Dev Log</div>
+    <h1>{{ post.title }}</h1>
+    <p class="muted">{{ post.created_at|date:"F d, Y" }}</p>
+  </div>
+  <div class="page-hero-actions">
+    <a class="btn btn-outline btn-small" href="{% url 'index' %}">Back to Logs</a>
+    {% if user.is_authenticated %}
+    <a class="btn btn-primary btn-small" href="{% url 'edit_post' post.id %}">Edit</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-block">
+  <article class="hud-panel blog-detail">
+    {% if post.image %}
+    <div class="blog-image">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+    </div>
+    {% endif %}
+    <div class="blog-content">
+      {{ post.body|linebreaks }}
+    </div>
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'delete_post' post.id %}" class="delete-form">
+      {% csrf_token %}
+      <button class="btn btn-danger btn-small" type="submit" onclick="return confirm('Delete this post?')">
+        Delete
+      </button>
+    </form>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

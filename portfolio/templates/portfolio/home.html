@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">PLAYER PROFILE ONLINE</div>
+    <h1>Nidhish Rajpoot</h1>
+    <p class="hero-subtitle">
+      Aspiring Game Developer + Software Engineer
+    </p>
+    <p class="hero-roles">
+      <span class="role-label">Roles:</span>
+      <span
+        id="typewriter"
+        class="typewriter"
+        data-roles="{{ hero_roles|join:'|' }}"
+      ></span>
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{% url 'projects' %}">View Projects</a>
+      <a class="btn btn-outline" href="{% url 'index' %}">Read Devlogs</a>
+      {% if site_links.github %}
+      <a class="btn btn-ghost" href="{{ site_links.github }}" target="_blank" rel="noopener">GitHub</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-panel hud-panel">
+    <div class="panel-title">System Status</div>
+    <div class="panel-row">
+      <span>Location</span>
+      <span>India, M.P.</span>
+    </div>
+    <div class="panel-row">
+      <span>Main Focus</span>
+      <span>Unity Game Development</span>
+    </div>
+    <div class="panel-row">
+      <span>Core Stack</span>
+      <span>C++ / C# / Python</span>
+    </div>
+    <div class="panel-row">
+      <span>Learning Mode</span>
+      <span>Hands-on + YouTube</span>
+    </div>
+    <div class="panel-row">
+      <span>Availability</span>
+      <span>Open to collaboration</span>
+    </div>
+  </div>
+</section>
+
+<section class="section-grid">
+  <div class="hud-panel">
+    <div class="panel-title">Character Profile</div>
+    <p>
+      I build interactive systems that feel tactile, responsive, and memorable.
+      My goal is to craft game experiences and software tools that connect with
+      players and teams alike.
+    </p>
+    <a class="btn btn-outline btn-small" href="{% url 'about' %}">Read Profile</a>
+  </div>
+  <div class="hud-panel">
+    <div class="panel-title">Skill Matrix</div>
+    <p>Balanced between gameplay engineering, backend systems, and UI polish.</p>
+    <a class="btn btn-outline btn-small" href="{% url 'skills' %}">View Skills</a>
+  </div>
+  <div class="hud-panel">
+    <div class="panel-title">Project Vault</div>
+    <p>Prototypes, clones, and production-ready Django builds.</p>
+    <a class="btn btn-outline btn-small" href="{% url 'projects' %}">Explore Projects</a>
+  </div>
+  <div class="hud-panel">
+    <div class="panel-title">Dev Logs</div>
+    <p>Keep up with new experiments, breakdowns, and system notes.</p>
+    <a class="btn btn-outline btn-small" href="{% url 'index' %}">Open Devlogs</a>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-header">
+    <h2>Featured Projects</h2>
+    <p>Game-inspired builds and web systems with clean UX.</p>
+  </div>
+  <div class="card-grid">
+    {% for project in projects|slice:":3" %}
+    <article class="project-card">
+      <div class="card-header">
+        <h3>{{ project.title }}</h3>
+        <span class="status {{ project.status|lower|slugify }}">{{ project.status }}</span>
+      </div>
+      <p>{{ project.description }}</p>
+      <div class="tech-list">
+        {% for tech in project.tech %}
+        <span class="tag">{{ tech }}</span>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-block hud-panel highlight-panel">
+  <div class="panel-title">Mission Log</div>
+  <p class="mission-text">
+    Latest mission: building agentic AI workflows, optimizing APIs, and shipping
+    tools that scale with teams.
+  </p>
+  <a class="btn btn-primary btn-small" href="{% url 'experience' %}">View Experience</a>
+</section>
+
+<section class="section-block contact-cta">
+  <div>
+    <h2>Ready to build together?</h2>
+    <p>Reach out for game dev collaborations, internships, or engineering roles.</p>
+  </div>
+  <a class="btn btn-outline" href="{% url 'contact' %}">Contact</a>
+</section>
+{% endblock %}

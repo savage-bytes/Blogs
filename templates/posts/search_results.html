@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Search</div>
+    <h1>Search Results</h1>
+    <p>Query: "{{ query }}"</p>
+  </div>
+  <div class="page-hero-actions">
+    <form method="get" action="{% url 'search_posts' %}" class="search-bar">
+      <input type="text" name="q" value="{{ query }}" placeholder="Search logs..." />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="timeline">
+    {% for post in posts %}
+    <article class="timeline-item hud-panel blog-tile">
+      <div class="card-header">
+        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+        <span class="muted">{{ post.created_at|date:"F d, Y" }}</span>
+      </div>
+      <div class="blog-excerpt">
+        {{ post.body|truncatewords:45|linebreaks }}
+      </div>
+      <a class="link-inline" href="{% url 'post_detail' post.id %}">Read Log</a>
+    </article>
+    {% empty %}
+    <div class="hud-panel">
+      <p>No results. Try another search term.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

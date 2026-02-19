@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Devlogs{% endblock %}
+
+{% block content %}
+<section class="page-hero compact">
+  <div class="page-hero-content">
+    <div class="hero-badge">Dev Logs</div>
+    <h1>Dev Logs</h1>
+    <p>Game dev journal, system notes, and build breakdowns.</p>
+  </div>
+  <div class="page-hero-actions">
+    <form method="get" action="{% url 'search_posts' %}" class="search-bar">
+      <input type="text" name="q" placeholder="Search logs..." />
+      <button type="submit">Search</button>
+    </form>
+    {% if user.is_authenticated %}
+    <a class="btn btn-primary btn-small" href="{% url 'create_post' %}">New Log</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="timeline">
+    {% for post in posts %}
+    <article class="timeline-item hud-panel blog-tile">
+      <div class="card-header">
+        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+        <span class="muted">{{ post.created_at|date:"F d, Y" }}</span>
+      </div>
+      {% if post.image %}
+      <div class="blog-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+      </div>
+      {% endif %}
+      <div class="blog-excerpt">
+        {{ post.body|truncatewords:45|linebreaks }}
+      </div>
+      <a class="link-inline" href="{% url 'post_detail' post.id %}">Read Log</a>
+    </article>
+    {% empty %}
+    <div class="hud-panel">
+      <p>No dev logs yet. {% if user.is_authenticated %}<a href="{% url 'create_post' %}">Create one</a>.{% endif %}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
